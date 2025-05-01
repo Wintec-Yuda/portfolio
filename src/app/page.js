@@ -1,397 +1,474 @@
-'use client'
+'use client';
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FiMoon, FiSun, FiGlobe, FiMail, FiPhone, FiMapPin, FiGithub, FiLinkedin, FiChevronDown, FiExternalLink } from 'react-icons/fi';
-import { FaLaravel, FaReact, FaVuejs, FaNodeJs } from 'react-icons/fa';
-import { SiNextdotjs, SiTailwindcss, SiNestjs, SiExpress, SiSpringboot, SiAngular, SiMysql, SiPostgresql, SiMongodb } from 'react-icons/si';
-import { TbApi } from 'react-icons/tb';
-import { BsRobot } from 'react-icons/bs';
+import { FiGithub, FiLinkedin, FiMail, FiPhone, FiMapPin, FiCalendar, FiAward, FiBriefcase, FiCode, FiCpu, FiDatabase, FiLayers } from 'react-icons/fi';
+import { FaLaravel, FaReact, FaVuejs, FaAngular, FaNodeJs } from 'react-icons/fa';
+import { SiNextdotjs, SiTailwindcss, SiNestjs, SiExpress, SiSpringboot, SiMysql, SiPostgresql, SiMongodb } from 'react-icons/si';
+import { TbApi, TbBrandPython } from 'react-icons/tb';
+
+const sections = [
+  { id: 'home', label: 'Home' },
+  { id: 'about', label: 'About' },
+  { id: 'skills', label: 'Skills' },
+  { id: 'experience', label: 'Experience' },
+  { id: 'projects', label: 'Projects' },
+  { id: 'contact', label: 'Contact' },
+];
+
+const skills = [
+  { name: 'Laravel', icon: <FaLaravel className="text-red-500" />, category: 'backend' },
+  { name: 'NestJS', icon: <SiNestjs className="text-red-500" />, category: 'backend' },
+  { name: 'ExpressJS', icon: <SiExpress className="text-gray-800" />, category: 'backend' },
+  { name: 'Spring Boot', icon: <SiSpringboot className="text-green-500" />, category: 'backend' },
+  { name: 'NodeJS', icon: <FaNodeJs className="text-green-600" />, category: 'backend' },
+  { name: 'ReactJS', icon: <FaReact className="text-blue-500" />, category: 'frontend' },
+  { name: 'VueJS', icon: <FaVuejs className="text-green-500" />, category: 'frontend' },
+  { name: 'AngularJS', icon: <FaAngular className="text-red-500" />, category: 'frontend' },
+  { name: 'NextJS', icon: <SiNextdotjs className="text-black" />, category: 'frontend' },
+  { name: 'Tailwind CSS', icon: <SiTailwindcss className="text-cyan-500" />, category: 'frontend' },
+  { name: 'MySQL', icon: <SiMysql className="text-blue-500" />, category: 'database' },
+  { name: 'PostgreSQL', icon: <SiPostgresql className="text-blue-600" />, category: 'database' },
+  { name: 'MongoDB', icon: <SiMongodb className="text-green-500" />, category: 'database' },
+  { name: 'REST API', icon: <TbApi className="text-purple-500" />, category: 'api' },
+  { name: 'Machine Learning', icon: <TbBrandPython className="text-yellow-500" />, category: 'ai' },
+];
+
+const experiences = [
+  {
+    role: 'AI Mastery (Study Independent Kampus Merdeka)',
+    company: 'Orbit Future Academy',
+    period: 'Aug 2022 – Dec 2022',
+    description: 'Studied the fundamentals of Machine Learning, Artificial Intelligence, Computer Vision, Data Science, and Natural Language Processing (NLP). Collaborated in a team to complete a final project, applying AI concepts to solve real-world problems.',
+    icon: <FiCpu />
+  },
+  {
+    role: 'Web Developer (Kampus Merdeka Internship)',
+    company: 'PT Kalbe Farma',
+    period: 'Feb 2023 – Jun 2023',
+    description: 'Developed a web-based system to manage the training process, from registration to data collection, replacing the previous manual workflow. Built using Laravel 10 and jQuery, improving efficiency and data accuracy.',
+    icon: <FiCode />
+  },
+  {
+    role: 'Frontend Developer (Independent Internship)',
+    company: 'CV Kasih Inovasi Teknologi',
+    period: 'Aug 2023 – Dec 2023',
+    description: 'Developed the Tryout Academy website, enabling teachers to create test questions and students to purchase and take exams online. Utilized Laravel 10 and Vue 3 to enhance user experience and platform functionality.',
+    icon: <FiLayers />
+  }
+];
+
+const projects = [
+  {
+    title: 'Detection Sit Up',
+    period: 'Jan 2024 – Jun 2024',
+    description: 'This project focused on developing a web application to help users improve their sit-up performance. By leveraging Mediapipe and OpenCV for real-time motion analysis, the application detects incorrect sit-up movements and provides feedback to guide users in performing exercises correctly. This project was part of my thesis and aimed at using computer vision techniques to enhance fitness training.',
+    technologies: ['Python', 'OpenCV', 'Mediapipe', 'Flask']
+  }
+];
 
 export default function Portfolio() {
-  const [darkMode, setDarkMode] = useState(false);
-  const [language, setLanguage] = useState('en');
-  const [activeSection, setActiveSection] = useState('about');
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('home');
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Check user's preferred color scheme
-    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      setDarkMode(true);
-    }
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY + 100;
+
+      for (const section of sections) {
+        const element = document.getElementById(section.id);
+        if (element) {
+          const offsetTop = element.offsetTop;
+          const offsetHeight = element.offsetHeight;
+
+          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
+            setActiveSection(section.id);
+            break;
+          }
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   useEffect(() => {
-    if (darkMode) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-  }, [darkMode]);
-
-  const toggleDarkMode = () => {
-    setDarkMode(!darkMode);
-  };
-
-  const toggleLanguage = () => {
-    setLanguage(language === 'en' ? 'id' : 'en');
-  };
+    setTimeout(() => setIsLoading(false), 1500);
+  }, []);
 
   const scrollToSection = (sectionId) => {
-    const section = document.getElementById(sectionId);
-    if (section) {
-      section.scrollIntoView({ behavior: 'smooth' });
+    const element = document.getElementById(sectionId);
+    if (element) {
+      window.scrollTo({
+        top: element.offsetTop - 80,
+        behavior: 'smooth'
+      });
       setActiveSection(sectionId);
-      setMobileMenuOpen(false);
+      setIsMenuOpen(false);
     }
   };
 
-  // Translations
-  const translations = {
-    en: {
-      about: 'About',
-      education: 'Education',
-      experience: 'Experience',
-      projects: 'Projects',
-      skills: 'Skills',
-      contact: 'Contact',
-      fullstackDeveloper: 'Fullstack Developer',
-      aboutContent: 'I am a Full Stack Web Developer with expertise in backend and frontend development, specializing in Laravel, React.js, SQL, and REST APIs. I enjoy building scalable, efficient, and user-friendly web applications, focusing on clean code, performance, and usability. With hands-on experience in both database management and UI development, I strive to create seamless and well-integrated solutions that enhance user experience and business processes.',
-      educationContent: 'During my studies, I gained a solid foundation in software development, databases, and REST API implementation. I worked on several projects involving web and mobile applications, strengthening my problem-solving skills and teamwork abilities.',
-      hobbies: 'Hobbies & Interests',
-      seeMore: 'See More',
-      viewProject: 'View Project',
-      contactMe: 'Contact Me',
-      downloadCV: 'Download CV'
-    },
-    id: {
-      about: 'Tentang',
-      education: 'Pendidikan',
-      experience: 'Pengalaman',
-      projects: 'Proyek',
-      skills: 'Keahlian',
-      contact: 'Kontak',
-      fullstackDeveloper: 'Pengembang Fullstack',
-      aboutContent: 'Saya seorang Pengembang Web Full Stack dengan keahlian dalam pengembangan backend dan frontend, khususnya Laravel, React.js, SQL, dan REST API. Saya menikmati membangun aplikasi web yang skalabel, efisien, dan ramah pengguna, dengan fokus pada kode yang bersih, performa, dan kegunaan. Dengan pengalaman langsung dalam manajemen database dan pengembangan UI, saya berusaha menciptakan solusi yang mulus dan terintegrasi dengan baik untuk meningkatkan pengalaman pengguna dan proses bisnis.',
-      educationContent: 'Selama masa studi, saya memperoleh dasar yang kuat dalam pengembangan perangkat lunak, database, dan implementasi REST API. Saya mengerjakan beberapa proyek yang melibatkan aplikasi web dan mobile, memperkuat kemampuan pemecahan masalah dan kerja tim saya.',
-      hobbies: 'Hobi & Minat',
-      seeMore: 'Lihat Selengkapnya',
-      viewProject: 'Lihat Proyek',
-      contactMe: 'Hubungi Saya',
-      downloadCV: 'Unduh CV'
-    }
-  };
-
-  const t = translations[language];
-
-  const skills = [
-    { name: 'Laravel', icon: <FaLaravel className="text-red-500" /> },
-    { name: 'ReactJS', icon: <FaReact className="text-blue-500" /> },
-    { name: 'VueJS', icon: <FaVuejs className="text-green-500" /> },
-    { name: 'NextJS', icon: <SiNextdotjs className="text-black dark:text-white" /> },
-    { name: 'Tailwind CSS', icon: <SiTailwindcss className="text-cyan-500" /> },
-    { name: 'NestJS', icon: <SiNestjs className="text-red-500" /> },
-    { name: 'ExpressJS', icon: <SiExpress className="text-black dark:text-white" /> },
-    { name: 'Spring Boot', icon: <SiSpringboot className="text-green-500" /> },
-    { name: 'NodeJS', icon: <FaNodeJs className="text-green-500" /> },
-    { name: 'AngularJS', icon: <SiAngular className="text-red-500" /> },
-    { name: 'MySQL', icon: <SiMysql className="text-blue-500" /> },
-    { name: 'PostgreSQL', icon: <SiPostgresql className="text-blue-500" /> },
-    { name: 'MongoDB', icon: <SiMongodb className="text-green-500" /> },
-    { name: 'REST API', icon: <TbApi className="text-purple-500" /> },
-    { name: 'Machine Learning', icon: <BsRobot className="text-yellow-500" /> }
-  ];
-
-  const experiences = [
-    {
-      title: 'AI Mastery (Study Independent Kampus Merdeka)',
-      company: 'Orbit Future Academy',
-      period: 'Aug 2022 – Dec 2022',
-      description: language === 'en' 
-        ? 'Studied the fundamentals of Machine Learning, Artificial Intelligence, Computer Vision, Data Science, and Natural Language Processing (NLP). Collaborated in a team to complete a final project, applying AI concepts to solve real-world problems.'
-        : 'Mempelajari dasar-dasar Machine Learning, Artificial Intelligence, Computer Vision, Data Science, dan Natural Language Processing (NLP). Berkolaborasi dalam tim untuk menyelesaikan proyek akhir, menerapkan konsep AI untuk memecahkan masalah dunia nyata.'
-    },
-    {
-      title: 'Web Developer (Kampus Merdeka Internship)',
-      company: 'PT Kalbe Farma',
-      period: 'Feb 2023 – Jun 2023',
-      description: language === 'en' 
-        ? 'Developed a web-based system to manage the training process, from registration to data collection, replacing the previous manual workflow. Built using Laravel 10 and jQuery, improving efficiency and data accuracy.'
-        : 'Mengembangkan sistem berbasis web untuk mengelola proses pelatihan, dari pendaftaran hingga pengumpulan data, menggantikan alur kerja manual sebelumnya. Dibangun menggunakan Laravel 10 dan jQuery, meningkatkan efisiensi dan akurasi data.'
-    },
-    {
-      title: 'Frontend Developer (Independent Internship)',
-      company: 'CV Kasih Inovasi Teknologi',
-      period: 'Aug 2023 – Dec 2023',
-      description: language === 'en' 
-        ? 'Developed the Tryout Academy website, enabling teachers to create test questions and students to purchase and take exams online. Utilized Laravel 10 and Vue 3 to enhance user experience and platform functionality.'
-        : 'Mengembangkan website Tryout Academy, memungkinkan guru untuk membuat soal ujian dan siswa untuk membeli dan mengikuti ujian secara online. Menggunakan Laravel 10 dan Vue 3 untuk meningkatkan pengalaman pengguna dan fungsionalitas platform.'
-    }
-  ];
-
-  const projects = [
-    {
-      title: 'Detection Sit Up',
-      period: 'Jan 2024 – Jun 2024',
-      description: language === 'en' 
-        ? 'This project focused on developing a web application to help users improve their sit-up performance. By leveraging Mediapipe and OpenCV for real-time motion analysis, the application detects incorrect sit-up movements and provides feedback to guide users in performing exercises correctly. This project was part of my thesis and aimed at using computer vision techniques to enhance fitness training.'
-        : 'Proyek ini berfokus pada pengembangan aplikasi web untuk membantu pengguna meningkatkan performa sit-up mereka. Dengan memanfaatkan Mediapipe dan OpenCV untuk analisis gerakan real-time, aplikasi mendeteksi gerakan sit-up yang salah dan memberikan umpan balik untuk memandu pengguna dalam melakukan latihan dengan benar. Proyek ini merupakan bagian dari tesis saya dan bertujuan menggunakan teknik computer vision untuk meningkatkan pelatihan kebugaran.',
-      technologies: ['Mediapipe', 'OpenCV', 'Computer Vision', 'React']
-    }
-  ];
-
-  const hobbies = ['Apple device', 'Movie', 'Games'];
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+        <motion.div
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 0.5 }}
+          className="text-4xl font-bold text-indigo-600"
+        >
+          MYT
+        </motion.div>
+      </div>
+    );
+  }
 
   return (
-    <div className={`min-h-screen transition-colors duration-300 ${darkMode ? 'dark bg-gray-900 text-gray-100' : 'bg-gray-50 text-gray-900'}`}>
-      {/* Header/Navigation */}
-      <header className="fixed w-full z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md shadow-sm">
+    <div className="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen">
+      {/* Navigation */}
+      <nav className="fixed top-0 left-0 right-0 bg-white/80 backdrop-blur-md shadow-sm z-50">
         <div className="container mx-auto px-6 py-4">
           <div className="flex justify-between items-center">
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5 }}
-              className="flex items-center space-x-2"
+              className="text-2xl font-bold text-indigo-600"
             >
-              <div className="w-10 h-10 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center text-white font-bold">
-                MYT
-              </div>
-              <span className="font-bold text-lg">Mochamad Yuda</span>
+              MYT
             </motion.div>
 
             {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center space-x-8">
-              {['about', 'education', 'experience', 'projects', 'skills', 'contact'].map((item) => (
-                <button
-                  key={item}
-                  onClick={() => scrollToSection(item)}
-                  className={`relative px-1 py-2 text-sm font-medium transition-colors ${activeSection === item ? 'text-blue-600 dark:text-blue-400' : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100'}`}
+            <div className="hidden md:flex space-x-8">
+              {sections.map((section) => (
+                <motion.button
+                  key={section.id}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => scrollToSection(section.id)}
+                  className={`px-3 py-1 rounded-full transition-colors ${activeSection === section.id ? 'bg-indigo-600 text-white' : 'text-gray-700 hover:text-indigo-600'}`}
                 >
-                  {t[item]}
-                  {activeSection === item && (
-                    <motion.span
-                      layoutId="activeSection"
-                      className="absolute left-0 bottom-0 w-full h-0.5 bg-blue-600 dark:bg-blue-400"
-                      transition={{ type: 'spring', bounce: 0.2, duration: 0.6 }}
-                    />
-                  )}
-                </button>
+                  {section.label}
+                </motion.button>
               ))}
-            </nav>
-
-            <div className="flex items-center space-x-4">
-              <button
-                onClick={toggleDarkMode}
-                className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
-                aria-label={darkMode ? 'Switch to light mode' : 'Switch to dark mode'}
-              >
-                {darkMode ? <FiSun className="w-5 h-5" /> : <FiMoon className="w-5 h-5" />}
-              </button>
-              <button
-                onClick={toggleLanguage}
-                className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors flex items-center"
-                aria-label={language === 'en' ? 'Switch to Bahasa Indonesia' : 'Switch to English'}
-              >
-                <FiGlobe className="w-5 h-5" />
-                <span className="ml-1 text-sm">{language === 'en' ? 'ID' : 'EN'}</span>
-              </button>
-              <button
-                className="md:hidden p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
-                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              >
-                <FiChevronDown className={`w-5 h-5 transition-transform ${mobileMenuOpen ? 'rotate-180' : ''}`} />
-              </button>
             </div>
-          </div>
 
-          {/* Mobile Navigation */}
-          <AnimatePresence>
-            {mobileMenuOpen && (
-              <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: 'auto' }}
-                exit={{ opacity: 0, height: 0 }}
-                transition={{ duration: 0.3 }}
-                className="md:hidden overflow-hidden"
-              >
-                <div className="pt-2 pb-4 space-y-2">
-                  {['about', 'education', 'experience', 'projects', 'skills', 'contact'].map((item) => (
-                    <button
-                      key={item}
-                      onClick={() => scrollToSection(item)}
-                      className={`block w-full text-left px-3 py-2 rounded-md transition-colors ${activeSection === item ? 'bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400' : 'hover:bg-gray-200 dark:hover:bg-gray-700'}`}
-                    >
-                      {t[item]}
-                    </button>
-                  ))}
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
+            {/* Mobile Menu Button */}
+            <button
+              className="md:hidden text-gray-700 focus:outline-none"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                {isMenuOpen ? (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                ) : (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                )}
+              </svg>
+            </button>
+          </div>
         </div>
-      </header>
+
+        {/* Mobile Menu */}
+        <AnimatePresence>
+          {isMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3 }}
+              className="md:hidden bg-white/95 backdrop-blur-md overflow-hidden"
+            >
+              <div className="container mx-auto px-6 py-4 flex flex-col space-y-4">
+                {sections.map((section) => (
+                  <motion.button
+                    key={section.id}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.3 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => scrollToSection(section.id)}
+                    className={`px-4 py-2 text-left rounded-lg transition-colors ${activeSection === section.id ? 'bg-indigo-100 text-indigo-600' : 'text-gray-700 hover:bg-gray-100'}`}
+                  >
+                    {section.label}
+                  </motion.button>
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </nav>
 
       {/* Main Content */}
-      <main className="pt-24 pb-12 container mx-auto px-6">
-        {/* Hero Section */}
-        <section className="flex flex-col md:flex-row items-center justify-between gap-8 mb-16">
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
-            className="md:w-1/2"
-          >
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">Mochamad Yuda Trinurais</h1>
-            <h2 className="text-xl md:text-2xl font-semibold text-blue-600 dark:text-blue-400 mb-6">{t.fullstackDeveloper}</h2>
-            <p className="text-lg mb-8 text-gray-600 dark:text-gray-300">
-              {language === 'en' 
-                ? 'Building seamless digital experiences with clean code and modern technologies.'
-                : 'Membangun pengalaman digital yang mulus dengan kode bersih dan teknologi modern.'}
-            </p>
-            <div className="flex flex-wrap gap-4">
-              <a
-                href="#contact"
-                className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors shadow-md hover:shadow-lg"
-              >
-                {t.contactMe}
-              </a>
-              <a
-                href="#"
-                className="px-6 py-3 border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg font-medium transition-colors"
-              >
-                {t.downloadCV}
-              </a>
-            </div>
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="md:w-1/2 flex justify-center"
-          >
-            <div className="relative w-64 h-64 md:w-80 md:h-80">
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full blur-xl opacity-30"></div>
-              <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-white dark:border-gray-800 shadow-xl">
-                {/* Placeholder for profile image - replace with actual image */}
-                <div className="w-full h-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
-                  <span className="text-4xl font-bold text-gray-500 dark:text-gray-400">MYT</span>
+      <main className="pt-24 pb-16 container mx-auto px-6">
+        {/* Home Section */}
+        <section id="home" className="min-h-screen flex items-center">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+              className="text-center md:text-left"
+            >
+              <h1 className="text-4xl md:text-6xl font-bold text-gray-800 mb-4">
+                Mochamad Yuda <span className="text-indigo-600">Trinurais</span>
+              </h1>
+              <h2 className="text-2xl md:text-3xl text-gray-600 mb-6">Fullstack Developer</h2>
+              <p className="text-lg text-gray-600 mb-8 max-w-lg">
+                I build scalable, efficient, and user-friendly web applications with a focus on clean code and performance.
+              </p>
+              <div className="flex flex-wrap gap-4 justify-center md:justify-start">
+                <motion.a
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  href="#contact"
+                  className="px-6 py-3 bg-indigo-600 text-white rounded-full font-medium shadow-lg hover:bg-indigo-700 transition-colors"
+                >
+                  Contact Me
+                </motion.a>
+                <motion.a
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  href="#projects"
+                  className="px-6 py-3 bg-white text-indigo-600 rounded-full font-medium shadow-lg hover:bg-gray-100 transition-colors"
+                >
+                  View Projects
+                </motion.a>
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="relative"
+            >
+              <div className="w-full h-80 md:h-96 bg-indigo-100 rounded-2xl overflow-hidden relative">
+                <div className="absolute inset-0 bg-gradient-to-br from-indigo-200 to-indigo-400 opacity-20"></div>
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="w-48 h-48 md:w-64 md:h-64 bg-indigo-100 rounded-full overflow-hidden border-4 border-white shadow-xl">
+                    {/* Placeholder for profile image */}
+                    <div className="w-full h-full bg-indigo-200 flex items-center justify-center text-6xl text-indigo-600 font-bold">
+                      MYT
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          </motion.div>
+              <motion.div
+                animate={{
+                  y: [0, -10, 0],
+                }}
+                transition={{
+                  duration: 4,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+                className="absolute -bottom-6 -left-6 w-16 h-16 bg-white rounded-xl shadow-lg flex items-center justify-center"
+              >
+                <FaReact className="text-blue-500 text-3xl" />
+              </motion.div>
+              <motion.div
+                animate={{
+                  y: [0, 10, 0],
+                }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: 0.5
+                }}
+                className="absolute -top-6 -right-6 w-16 h-16 bg-white rounded-xl shadow-lg flex items-center justify-center"
+              >
+                <FaLaravel className="text-red-500 text-3xl" />
+              </motion.div>
+            </motion.div>
+          </div>
         </section>
 
         {/* About Section */}
-        <section id="about" className="mb-16 scroll-mt-24">
+        <section id="about" className="py-20">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
+            className="grid md:grid-cols-2 gap-12 items-center"
           >
-            <h2 className="text-3xl font-bold mb-6 flex items-center">
-              <span className="w-4 h-4 bg-blue-600 dark:bg-blue-400 rounded-full mr-3"></span>
-              {t.about}
-            </h2>
-            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6">
-              <p className="text-gray-700 dark:text-gray-300 mb-6">{t.aboutContent}</p>
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                <div className="flex items-center space-x-2">
-                  <FiMail className="text-blue-600 dark:text-blue-400" />
-                  <span>mochamadyudatrinurais@gmail.com</span>
+            <div>
+              <h2 className="text-3xl font-bold text-gray-800 mb-6">About <span className="text-indigo-600">Me</span></h2>
+              <p className="text-gray-600 mb-6">
+                I am a Full Stack Web Developer with expertise in backend and frontend development, specializing in Laravel, React.js, SQL, and REST APIs. I enjoy building scalable, efficient, and user-friendly web applications, focusing on clean code, performance, and usability.
+              </p>
+              <p className="text-gray-600 mb-8">
+                With hands-on experience in both database management and UI development, I strive to create seamless and well-integrated solutions that enhance user experience and business processes.
+              </p>
+
+              <div className="grid grid-cols-2 gap-4 mb-8">
+                <div className="flex items-center">
+                  <FiCalendar className="text-indigo-600 mr-2" />
+                  <span className="text-gray-600">November 23, 1999</span>
                 </div>
-                <div className="flex items-center space-x-2">
-                  <FiPhone className="text-blue-600 dark:text-blue-400" />
-                  <span>085179945123</span>
+                <div className="flex items-center">
+                  <FiMapPin className="text-indigo-600 mr-2" />
+                  <span className="text-gray-600">East Java, Indonesia</span>
                 </div>
-                <div className="flex items-center space-x-2">
-                  <FiMapPin className="text-blue-600 dark:text-blue-400" />
-                  <span>East Java, Indonesia</span>
+                <div className="flex items-center">
+                  <FiMail className="text-indigo-600 mr-2" />
+                  <span className="text-gray-600">mochamadyudatrinurais@gmail.com</span>
                 </div>
-                <div className="flex items-center space-x-2">
-                  <FiLinkedin className="text-blue-600 dark:text-blue-400" />
-                  <a 
-                    href="https://www.linkedin.com/in/mochamadyuda-trinurais-4a87a1309/" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="hover:underline"
-                  >
-                    LinkedIn
-                  </a>
+                <div className="flex items-center">
+                  <FiPhone className="text-indigo-600 mr-2" />
+                  <span className="text-gray-600">085179945123</span>
                 </div>
-                <div className="flex items-center space-x-2">
-                  <FiGithub className="text-blue-600 dark:text-blue-400" />
-                  <a 
-                    href="https://github.com/Mintec-Yuda" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="hover:underline"
-                  >
-                    GitHub
-                  </a>
+              </div>
+
+              <div className="flex space-x-4">
+                <motion.a
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                  href="https://www.linkedin.com/in/mochamad-yuda-trinurais-4a87a1309/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 bg-blue-600 text-white rounded-full flex items-center justify-center"
+                >
+                  <FiLinkedin className="text-xl" />
+                </motion.a>
+                <motion.a
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                  href="https://github.com/Wintec-Yuda"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 bg-gray-800 text-white rounded-full flex items-center justify-center"
+                >
+                  <FiGithub className="text-xl" />
+                </motion.a>
+              </div>
+            </div>
+
+            <div className="bg-white p-8 rounded-2xl shadow-lg">
+              <h3 className="text-xl font-bold text-gray-800 mb-6">Education</h3>
+              <div className="space-y-6">
+                <div className="flex">
+                  <div className="mr-4">
+                    <div className="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center">
+                      <FiAward className="text-indigo-600 text-xl" />
+                    </div>
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-gray-800">Universitas Nusantara PGRI Kediri</h4>
+                    <p className="text-gray-600">Bachelor's Degree in Informatics Engineering (S.Kom)</p>
+                    <p className="text-gray-500 text-sm">2020 – 2024 | GPA: 3.84</p>
+                    <p className="text-gray-600 mt-2">
+                      During my studies, I gained a solid foundation in software development, databases, and REST API implementation. I worked on several projects involving web and mobile applications, strengthening my problem-solving skills and teamwork abilities.
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
           </motion.div>
         </section>
 
-        {/* Education Section */}
-        <section id="education" className="mb-16 scroll-mt-24">
+        {/* Skills Section */}
+        <section id="skills" className="py-20">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
           >
-            <h2 className="text-3xl font-bold mb-6 flex items-center">
-              <span className="w-4 h-4 bg-blue-600 dark:bg-blue-400 rounded-full mr-3"></span>
-              {t.education}
-            </h2>
-            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden">
-              <div className="p-6">
-                <div className="flex flex-col md:flex-row justify-between mb-4">
-                  <h3 className="text-xl font-semibold">Universitas Nusantara PGRI Kediri</h3>
-                  <span className="text-gray-500 dark:text-gray-400">2020 – 2024</span>
-                </div>
-                <h4 className="text-lg font-medium text-blue-600 dark:text-blue-400 mb-3">
-                  Bachelor's Degree in Informatics Engineering (S.Kom) Graduated: 2024 | GPA: 3.84
-                </h4>
-                <p className="text-gray-700 dark:text-gray-300">{t.educationContent}</p>
+            <h2 className="text-3xl font-bold text-gray-800 mb-4 text-center">My <span className="text-indigo-600">Skills</span></h2>
+            <p className="text-gray-600 mb-12 text-center max-w-2xl mx-auto">
+              Here are the technologies and tools I've worked with across various domains of web development.
+            </p>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {['backend', 'frontend', 'database', 'api', 'ai'].map((category) => (
+                <motion.div
+                  key={category}
+                  whileHover={{ y: -5 }}
+                  className="bg-white p-6 rounded-xl shadow-md"
+                >
+                  <div className="flex items-center mb-4">
+                    {category === 'backend' && <FiCode className="text-indigo-600 text-xl mr-2" />}
+                    {category === 'frontend' && <FiLayers className="text-indigo-600 text-xl mr-2" />}
+                    {category === 'database' && <FiDatabase className="text-indigo-600 text-xl mr-2" />}
+                    {category === 'api' && <TbApi className="text-indigo-600 text-xl mr-2" />}
+                    {category === 'ai' && <FiCpu className="text-indigo-600 text-xl mr-2" />}
+                    <h3 className="font-bold text-gray-800 capitalize">{category} Skills</h3>
+                  </div>
+                  <div className="space-y-3">
+                    {skills
+                      .filter(skill => skill.category === category)
+                      .map(skill => (
+                        <div key={skill.name} className="flex items-center">
+                          <div className="mr-3">
+                            {skill.icon}
+                          </div>
+                          <span className="text-gray-700">{skill.name}</span>
+                        </div>
+                      ))}
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+
+            <div className="mt-12 bg-white p-8 rounded-2xl shadow-lg">
+              <h3 className="text-xl font-bold text-gray-800 mb-6">Hobbies & Interests</h3>
+              <div className="flex flex-wrap gap-4">
+                {['Apple devices', 'Movies', 'Games', 'Fitness', 'Technology'].map((hobby) => (
+                  <motion.div
+                    key={hobby}
+                    whileHover={{ scale: 1.05 }}
+                    className="px-4 py-2 bg-indigo-100 text-indigo-700 rounded-full"
+                  >
+                    {hobby}
+                  </motion.div>
+                ))}
               </div>
             </div>
           </motion.div>
         </section>
 
         {/* Experience Section */}
-        <section id="experience" className="mb-16 scroll-mt-24">
+        <section id="experience" className="py-20">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
           >
-            <h2 className="text-3xl font-bold mb-6 flex items-center">
-              <span className="w-4 h-4 bg-blue-600 dark:bg-blue-400 rounded-full mr-3"></span>
-              {t.experience}
-            </h2>
-            <div className="space-y-6">
+            <h2 className="text-3xl font-bold text-gray-800 mb-4 text-center">Work <span className="text-indigo-600">Experience</span></h2>
+            <p className="text-gray-600 mb-12 text-center max-w-2xl mx-auto">
+              My professional journey and the roles I've undertaken in the tech industry.
+            </p>
+
+            <div className="space-y-8">
               {experiences.map((exp, index) => (
                 <motion.div
                   key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
+                  initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden"
+                  className="bg-white p-6 rounded-xl shadow-md"
                 >
-                  <div className="p-6">
-                    <div className="flex flex-col md:flex-row justify-between mb-2">
-                      <h3 className="text-xl font-semibold">{exp.title}</h3>
-                      <span className="text-gray-500 dark:text-gray-400">{exp.period}</span>
+                  <div className="flex">
+                    <div className="mr-4">
+                      <div className="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center">
+                        {exp.icon}
+                      </div>
                     </div>
-                    <h4 className="text-lg font-medium text-blue-600 dark:text-blue-400 mb-3">{exp.company}</h4>
-                    <p className="text-gray-700 dark:text-gray-300">{exp.description}</p>
+                    <div className="flex-1">
+                      <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-2">
+                        <h3 className="font-bold text-gray-800">{exp.role}</h3>
+                        <span className="text-indigo-600 text-sm">{exp.period}</span>
+                      </div>
+                      <h4 className="text-gray-600 font-medium mb-3">{exp.company}</h4>
+                      <p className="text-gray-600">{exp.description}</p>
+                    </div>
                   </div>
                 </motion.div>
               ))}
@@ -400,105 +477,45 @@ export default function Portfolio() {
         </section>
 
         {/* Projects Section */}
-        <section id="projects" className="mb-16 scroll-mt-24">
+        <section id="projects" className="py-20">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
           >
-            <h2 className="text-3xl font-bold mb-6 flex items-center">
-              <span className="w-4 h-4 bg-blue-600 dark:bg-blue-400 rounded-full mr-3"></span>
-              {t.projects}
-            </h2>
-            <div className="grid grid-cols-1 gap-6">
+            <h2 className="text-3xl font-bold text-gray-800 mb-4 text-center">Featured <span className="text-indigo-600">Projects</span></h2>
+            <p className="text-gray-600 mb-12 text-center max-w-2xl mx-auto">
+              Some of my notable projects that showcase my skills and expertise.
+            </p>
+
+            <div className="grid md:grid-cols-2 gap-8">
               {projects.map((project, index) => (
                 <motion.div
                   key={index}
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 50 }}
                   whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden"
+                  className="bg-white rounded-xl shadow-lg overflow-hidden"
                 >
+                  <div className="h-48 bg-gradient-to-r from-indigo-500 to-purple-600 flex items-center justify-center">
+                    <FiBriefcase className="text-white text-6xl opacity-30" />
+                  </div>
                   <div className="p-6">
-                    <div className="flex flex-col md:flex-row justify-between mb-2">
-                      <h3 className="text-xl font-semibold">{project.title}</h3>
-                      <span className="text-gray-500 dark:text-gray-400">{project.period}</span>
+                    <div className="flex justify-between items-start mb-2">
+                      <h3 className="text-xl font-bold text-gray-800">{project.title}</h3>
+                      <span className="text-sm text-gray-500">{project.period}</span>
                     </div>
-                    <p className="text-gray-700 dark:text-gray-300 mb-4">{project.description}</p>
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      {project.technologies.map((tech, i) => (
-                        <span key={i} className="px-3 py-1 bg-gray-100 dark:bg-gray-700 rounded-full text-sm">
+                    <p className="text-gray-600 mb-4">{project.description}</p>
+                    <div className="flex flex-wrap gap-2">
+                      {project.technologies.map((tech, techIndex) => (
+                        <span key={techIndex} className="px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full text-sm">
                           {tech}
                         </span>
                       ))}
                     </div>
-                    <button className="flex items-center text-blue-600 dark:text-blue-400 hover:underline">
-                      {t.viewProject} <FiExternalLink className="ml-1" />
-                    </button>
                   </div>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-        </section>
-
-        {/* Skills Section */}
-        <section id="skills" className="mb-16 scroll-mt-24">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
-            <h2 className="text-3xl font-bold mb-6 flex items-center">
-              <span className="w-4 h-4 bg-blue-600 dark:bg-blue-400 rounded-full mr-3"></span>
-              {t.skills}
-            </h2>
-            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6">
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-                {skills.map((skill, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.3, delay: index * 0.05 }}
-                    className="flex flex-col items-center p-4 bg-gray-50 dark:bg-gray-700 rounded-lg"
-                  >
-                    <div className="text-3xl mb-2">{skill.icon}</div>
-                    <span className="text-sm font-medium text-center">{skill.name}</span>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-          </motion.div>
-        </section>
-
-        {/* Hobbies Section */}
-        <section className="mb-16">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
-            <h2 className="text-3xl font-bold mb-6 flex items-center">
-              <span className="w-4 h-4 bg-blue-600 dark:bg-blue-400 rounded-full mr-3"></span>
-              {t.hobbies}
-            </h2>
-            <div className="flex flex-wrap gap-3">
-              {hobbies.map((hobby, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.3, delay: index * 0.1 }}
-                  className="px-4 py-2 bg-white dark:bg-gray-800 rounded-full shadow-sm"
-                >
-                  {hobby}
                 </motion.div>
               ))}
             </div>
@@ -506,102 +523,96 @@ export default function Portfolio() {
         </section>
 
         {/* Contact Section */}
-        <section id="contact" className="scroll-mt-24">
+        <section id="contact" className="py-20">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
+            className="bg-white rounded-2xl shadow-lg overflow-hidden"
           >
-            <h2 className="text-3xl font-bold mb-6 flex items-center">
-              <span className="w-4 h-4 bg-blue-600 dark:bg-blue-400 rounded-full mr-3"></span>
-              {t.contact}
-            </h2>
-            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div>
-                  <h3 className="text-xl font-semibold mb-4">{t.contactMe}</h3>
-                  <p className="text-gray-700 dark:text-gray-300 mb-6">
-                    {language === 'en' 
-                      ? "Feel free to reach out if you're looking for a developer, have a question, or just want to connect."
-                      : "Jangan ragu untuk menghubungi jika Anda mencari developer, memiliki pertanyaan, atau hanya ingin terhubung."}
-                  </p>
-                  <div className="space-y-4">
-                    <div className="flex items-center space-x-3">
-                      <FiMail className="text-blue-600 dark:text-blue-400 text-xl" />
-                      <span>mochamadyudatrinurais@gmail.com</span>
-                    </div>
-                    <div className="flex items-center space-x-3">
-                      <FiPhone className="text-blue-600 dark:text-blue-400 text-xl" />
-                      <span>085179945123</span>
-                    </div>
-                    <div className="flex items-center space-x-3">
-                      <FiMapPin className="text-blue-600 dark:text-blue-400 text-xl" />
-                      <span>East Java, Indonesia</span>
-                    </div>
+            <div className="grid md:grid-cols-2">
+              <div className="p-8 md:p-12 bg-indigo-600 text-white">
+                <h2 className="text-3xl font-bold mb-6">Get In Touch</h2>
+                <p className="mb-8">
+                  Feel free to reach out if you're looking for a developer, have a question, or just want to connect.
+                </p>
+                <div className="space-y-4">
+                  <div className="flex items-center">
+                    <FiMail className="mr-4 text-xl" />
+                    <span>mochamadyudatrinurais@gmail.com</span>
                   </div>
-                  <div className="flex space-x-4 mt-6">
-                    <a 
-                      href="https://www.linkedin.com/in/mochamadyuda-trinurais-4a87a1309/" 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="p-2 bg-gray-100 dark:bg-gray-700 rounded-full hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
-                    >
-                      <FiLinkedin className="w-5 h-5" />
-                    </a>
-                    <a 
-                      href="https://github.com/Mintec-Yuda" 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="p-2 bg-gray-100 dark:bg-gray-700 rounded-full hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
-                    >
-                      <FiGithub className="w-5 h-5" />
-                    </a>
+                  <div className="flex items-center">
+                    <FiPhone className="mr-4 text-xl" />
+                    <span>085179945123</span>
+                  </div>
+                  <div className="flex items-center">
+                    <FiMapPin className="mr-4 text-xl" />
+                    <span>East Java, Indonesia</span>
                   </div>
                 </div>
-                <div>
-                  <form className="space-y-4">
-                    <div>
-                      <label htmlFor="name" className="block text-sm font-medium mb-1">
-                        {language === 'en' ? 'Name' : 'Nama'}
-                      </label>
-                      <input
-                        type="text"
-                        id="name"
-                        className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
-                        placeholder={language === 'en' ? 'Your name' : 'Nama Anda'}
-                      />
-                    </div>
-                    <div>
-                      <label htmlFor="email" className="block text-sm font-medium mb-1">
-                        Email
-                      </label>
-                      <input
-                        type="email"
-                        id="email"
-                        className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
-                        placeholder="your.email@example.com"
-                      />
-                    </div>
-                    <div>
-                      <label htmlFor="message" className="block text-sm font-medium mb-1">
-                        {language === 'en' ? 'Message' : 'Pesan'}
-                      </label>
-                      <textarea
-                        id="message"
-                        rows="4"
-                        className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
-                        placeholder={language === 'en' ? 'Your message here...' : 'Pesan Anda di sini...'}
-                      ></textarea>
-                    </div>
-                    <button
-                      type="submit"
-                      className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors shadow-md hover:shadow-lg w-full"
-                    >
-                      {language === 'en' ? 'Send Message' : 'Kirim Pesan'}
-                    </button>
-                  </form>
+                <div className="mt-8 flex space-x-4">
+                  <motion.a
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                    href="https://www.linkedin.com/in/mochamad-yuda-trinurais-4a87a1309/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-10 h-10 bg-white text-indigo-600 rounded-full flex items-center justify-center"
+                  >
+                    <FiLinkedin className="text-xl" />
+                  </motion.a>
+                  <motion.a
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                    href="https://github.com/Wintec-Yuda"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-10 h-10 bg-white text-indigo-600 rounded-full flex items-center justify-center"
+                  >
+                    <FiGithub className="text-xl" />
+                  </motion.a>
                 </div>
+              </div>
+              <div className="p-8 md:p-12">
+                <h3 className="text-2xl font-bold text-gray-800 mb-6">Send Me a Message</h3>
+                <form className="space-y-6">
+                  <div>
+                    <label htmlFor="name" className="block text-gray-700 mb-2">Name</label>
+                    <input
+                      type="text"
+                      id="name"
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                      placeholder="Your name"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="email" className="block text-gray-700 mb-2">Email</label>
+                    <input
+                      type="email"
+                      id="email"
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                      placeholder="Your email"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="message" className="block text-gray-700 mb-2">Message</label>
+                    <textarea
+                      id="message"
+                      rows="4"
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                      placeholder="Your message"
+                    ></textarea>
+                  </div>
+                  <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    type="submit"
+                    className="w-full px-6 py-3 bg-indigo-600 text-white rounded-lg font-medium hover:bg-indigo-700 transition-colors"
+                  >
+                    Send Message
+                  </motion.button>
+                </form>
               </div>
             </div>
           </motion.div>
@@ -609,11 +620,51 @@ export default function Portfolio() {
       </main>
 
       {/* Footer */}
-      <footer className="bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 py-6">
+      <footer className="bg-gray-800 text-white py-8">
         <div className="container mx-auto px-6 text-center">
-          <p className="text-gray-600 dark:text-gray-300">
-            &copy; {new Date().getFullYear()} Mochamad Yuda Trinurais. {language === 'en' ? 'All rights reserved.' : 'Hak cipta dilindungi.'}
-          </p>
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="flex flex-col items-center"
+          >
+            <div className="text-2xl font-bold mb-4">Mochamad Yuda Trinurais</div>
+            <p className="mb-6 max-w-lg">Fullstack Developer creating efficient and user-friendly web applications.</p>
+            <div className="flex space-x-4 mb-6">
+              <motion.a
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                href="https://www.linkedin.com/in/mochamad-yuda-trinurais-4a87a1309/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center"
+              >
+                <FiLinkedin className="text-xl" />
+              </motion.a>
+              <motion.a
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                href="https://github.com/Wintec-Yuda"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center"
+              >
+                <FiGithub className="text-xl" />
+              </motion.a>
+              <motion.a
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                href="mailto:mochamadyudatrinurais@gmail.com"
+                className="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center"
+              >
+                <FiMail className="text-xl" />
+              </motion.a>
+            </div>
+            <div className="border-t border-gray-700 w-full max-w-xs pt-6">
+              <p>© {new Date().getFullYear()} Mochamad Yuda Trinurais. All rights reserved.</p>
+            </div>
+          </motion.div>
         </div>
       </footer>
     </div>
