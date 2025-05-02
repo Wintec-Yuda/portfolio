@@ -4,64 +4,53 @@ Dibangun menggunakan Next.js versi 15 (app router), Tailwind CSS, Framer Motion,
 
 Output berupa 1 file page.js lengkap codingannya terstruktur
 
-Muhammad
-C O N T E N T C R E A T O R
-Patel
-+123-456-7890
-hello@reallygreatsite.com
-123 Anywhere St., Any City
-Profil Saya adalah Content Creator berpengalaman yang piawai
-dalam menulis naskah yang memukau. Menulis bukan hanya
-sekadar hobi, tetapi juga menjadi sumber ide kreatif yang
-mengalir pada setiap konten yang saya buat. Saya siap
-membagikan semangat dan kreativitas yang saya miliki untuk
-memperkuat tim dengan penuh semangat!
-Pendidikan
-2015 - 2019
-Borcelle University
-S1 Desain Komunikasi
-Visual
-Pengalaman Kerja
-Content Creator
-Arrowai Industries | 2014 - 2016
-2015 - 2019
-Borcelle University
-S2 Desain Komunikasi
-Visual
-Keterampilan
-Di Arrowai Industries, saya menduduki posisi sebagai Content
-Creator, merancang dan menciptakan konten yang menghibur
-dan mendidik. Saya berhasil membangun audiens sebanyak
-50% peningkatan pengikut dan mencapai video viral dengan 1
-juta tayangan].
-Product Manager
-Liceria Co | 2018 - 2020
-Di Liceria Co, saya menduduki posisi sebagai Produk Manajer,
-merancang dan menciptakan produk yang berkualitas dan
-bermanfaat. Saya berhasil membangun audiens sebanyak 50%
-peningkatan pengikut dan dan penjualan mencapai dengan 1
-juta transaksi.
-Kemampuan riset
-Manajemen waktu
-SEO (Search Engine
-Optimization)
-Videografi
-Copywriting
-Fotografi
-Editing
-Copywriter
-Borcelle | 2021 - 2022
-Di Borcelle, saya menduduki posisi sebagai Copywriter,
-merancang dan menciptakan produk yang berkualitas dan
-bermanfaat. Saya berhasil membangun audiens sebanyak 50%
-peningkatan pengikut dan dan penjualan mencapai dengan 1
-juta transaksi.
-Pencapaian
-2017
-Juara 1 Lomba Fotografi
-Liceria Co.
-2019
-Juara 1 Lomba Menulis
-Liceria Co.
+HEBI IRAWAN
+(+62)895620119214
+Ig@_
+hebiirawan
+perpisahan9d@gmail.com
+JL KH Wahid Hasyim Kelurahan Bandar Lor
+Kecamatan Mojoroto Gang Tangkis No.6 Kota Kediri
+A B O U T M E
+Saya seorang remaja yang berusia 24 tahun, .saya lulusan S1 Peternakan di universitas
+nusantara pgri kediri Saya pernah bekerja di outlet seblak fck, coffe brantas dan
+beberapa kopi lainya,
+P E N G A L A M A N O R G A N I S A S I
+P E N D I D I K A N
+SIE KEHARONIAN ISLAM (SKI SMAPTA)
+MENJABAT SEBAGAI HUMAS 2017-2018
+HIMPUNAN MAHASISWA PETERNAKAN
+(HIMA PETERNAKAN UNP PGRI
+KEDIRI)MENJABAT SEBAGAI KETUA 2021-
+2022
+UNIT KEGIATAN KEHARONIAN ISLAM
+(UKKI UNP PGRI KEDIRI) MENJABAT
+SEBAGAI ANGGOTA TAKMIR
+TK ENDAH
+SDN BANDAR KIDUL 1
+SMP PAWYATAN DAHA 2
+SMAN 7 KEDIRI
+S1 Peternakan
+P E N C A P A I A N
+S K I L L
+Peraih pendanaan dikti pada pkm
+2021 | pkm riset resakta tingkat
+nasional
+Kredensial mikro Mahasiswa
+indonesia universitas
+muhammadiyah malang 2021 |
+KMMI tingkat nasional
+Lolos Kampus Merdeka program
+Wirausaha Merdeka di
+universitas Brawijaya malang
+2022| Wirausaha Merdeka tingkat
+nasional
+mengoperasikan komputer
+Mengatur Tim
+Pembicara Publik
+organisasi
+K E S U K A A N
+menjelajah alam, sepak bola,
+dan tenis meja
 
-buatkan responsive, fitur dark mode & light mode manual pake state {darkmode === 'dark'? bg-...: bg-...}, fitur multi bahasa (indonesia/english), dan buatkan animasinya yg bagus, keren
+buatkan responsive, tema (warna, font, tone, struktur) sesuai dengan isi CV, fitur multi bahasa (indonesia/english), dan buatkan animasinya yg bagus, keren
