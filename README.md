@@ -4,54 +4,49 @@ Dibangun menggunakan Next.js versi 15 (app router), Tailwind CSS, Framer Motion,
 
 Output berupa 1 file page.js lengkap codingannya terstruktur
 
-TITO PANGESTU
-DIGITAL MEDIA SPECIALIST
-Jl Dandangan 2 No 117 | titopangestu34@gmail.com | https://www.linkedin.com/in/tito-pangestu-467131243/
-Mahasiswa Teknik Informatika dengan minat mendalam pada pengembangan dan pengolahan data, serta
-fokus pada eksplorasi lebih lanjut dalam data science. Saya memiliki pengalaman di bidang Human Resource
-Management, Digital Marketing, dan Business Administration, serta telah bekerja dalam digital marketing dan
-pembuatan konten. Selain pemahaman yang kuat mengenai pengolahan data dan algoritma, saya juga
-antusias untuk terus mengembangkan diri di bidang data science dan analisis data guna menghasilkan solusi
-inovatif yang berbasis data.
-KEAHLIAN UTAMA
-Pengembangan Data dan Algoritma
-Berfokus pada pengolahan data dan algoritma dalam bidang Teknik Informatika, dengan kemampuan
-analisis dan pengembangan solusi berbasis data.
-Dapat memahami data yang disajikan dengan baik dan memiliki minat untuk terus berkembang dalam
-bidang olah data
+KONTAK
+081553990898
+farihfauzi123@gmail.com
+KEAHLIAN
+Office
+HTML & CSS
+Photoshop
+COREL DRAW
+ALAMAT
+Desa Jatirejo, Kec. Banyakan,
+Kab Kediri, Jawa Timur 64151
+BAHASA
+Bahasa Inggris
+Bahasa Indonesia
+Fotografi
+Editing Video
+MOH FARIH FAUZI
+Kediri 08 Februari 2002
+Individu yang memiliki semangat tinggi dalam
+mendalami teknologi digital. Berpengalaman
+dalam desain grafis, pengolahan office,
+mengelelola software, dan troble souting.
+PENDIDIKAN
+MTSN Mojoroto
+kota Kediri
+SMAN 1 Grogol
+ilmu pengetahuan alam
+Universitas Nusantara PGRI Kediri S1 Teknik Informatika
+2011 - 2014
+2014 - 2017
+2020 - 2024
 PENGALAMAN
-Cv. Tiga Bintang
-Jan 2023 - Present
-Membantu dalam analisis data kampanye pemasaran untuk meningkatkan engagement dan konversi.
-Mengelola pembuatan konten digital untuk berbagai platform, termasuk Facebook dan Instagram.
-Memastikan SEO diterapkan dengan tepat untuk meningkatkan visibilitas online.
-PT. Oramicin
-March 2023 - May 2023
-Mengoptimalkan SEO untuk meningkatkan performa dan visibilitas website di mesin pencari.
-Menyusun caption yang menarik dan efektif untuk Facebook Page dan Instagram guna meningkatkan
-engagement.
-Membuat email perusahaan dengan desain dan isi profesional untuk mendukung kebutuhan komunikasi
-internal dan eksternal.
-Menyajikan data negara pengimpor bunga hias dan melihat insight penjualan sehingga dapat
-memaksimalkan potensi META ADs di negara tersebut
-PENDIKAN
-Informatic Engineering
-Progam Hibah :
-Progam Peningkatan Kapasitas Organisasi Mahasiswa sebagai Ketua (2022)
-Progam Peningkatan Kapasitas Organisasi Mahasiswa sebagai Koordinator Lapangan (2023)
-Progam Pembinaan Mahasiswa Wirausaha sebagai Ketua (2023)
-Progam Pembinaan Mahasiswa Wirausaha sebagai Mentor Tim (2024)
-Kampus Merdeka
-Progam Sekolah Ekspor oleh SEKOLAH EKSPOR
-INFORMASI TAMBAHAN
-2020-2025
-Hard Skill
-Soft Skill
-Membuat program machine learning menggunakan Excel maupun kode, mampu
-membuat desain grafis sederhana, memahami dan menguasai bahasa Python, memahami
-komputasi cerdas dalam pemrograman sederhana.
-Dapat berkomunikasi dengan baik, mampu menyampaikan pesan secara informatif, dapat
-memberikan keputusan yang tepat sesuai kondisi, mampu bekerja dalam tim, dan
-memaksimalkan sumber daya yang ada.
+Magang Dinas UMKM Pertanian Kabupaten Kediri
+Februari-Maret 2023
+Membantu kebutuhan digital dinas Pertanian
+Kabupaten Kediri
+Koordinator Dinas UMKM Kabupaten Kediri
+Agustus 2024-November 2024
+Mengkoordinasi tim untuk membantu umkm dalam
+pendampingan terhadap program pemerintah
+Crew PT Sukses Prestasi Karunia (MR Suprek)
+Desember 2024 - Maret 2025
+Membantu Produksi sesuai SOP Perusahaan dan
+melayani pelanggan
 
 buatkan responsive, tema (warna, font, tone, struktur) sesuai dengan isi CV, fitur multi bahasa (indonesia/english), dan buatkan animasinya yg bagus, keren
